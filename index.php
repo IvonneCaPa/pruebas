@@ -1,51 +1,51 @@
 <?php
-    require_once "Combinado.php";
+    require_once "Cocktail.php";
     
     //registar 4 combinados y ponerlos en un array
-    $combinado1 = new Combinado("margarita", true, 8, ["ron", "limon", "pomelo"]);
-    $combinado2 = new Combinado("gintonic", true, 12, ["ginebra", "tonica", "aceituna"]);
-    $combinado3 = new Combinado("mojito", false, 10.5, ["azucar", "hielo", "menta", "fresa"]);
-    $combinado4 = new Combinado("cafe", false, 3, ["cafe", "leche", "azucar"]);
+    $cocktail1 = new Cocktail("margarita", true, 8, ["ron", "limon", "pomelo"]);
+    $cocktail2 = new Cocktail("gintonic", true, 12, ["ginebra", "tonica", "aceituna"]);
+    $cocktail3 = new Cocktail("mojito", false, 10.5, ["azucar", "hielo", "menta", "fresa"]);
+    $cocktail4 = new Cocktail("cafe", false, 3, ["cafe", "leche", "azucar"]);
     
-    $combinados = [$combinado1, $combinado2, $combinado3, $combinado4];
+    $cocktails = [$cocktail1, $cocktail2, $cocktail3, $cocktail4];
 
-    function mediaPrice(array $combinados) :float
+    function averagePrice(array $cocktails) :float
     {
-        $totalprecio = 0;
-        $cantidad = count($combinados);
+        $totalPrice = 0;
+        $amount = count($cocktails);
 
-        foreach($combinados as $combinado){
-            $totalprecio += $combinado -> precio;
+        foreach($cocktails as $cocktail){
+            $totalPrice += $cocktail -> price;
         }
 
-        return $totalprecio/$cantidad;
+        return $totalPrice/$amount;
     }
 
-    $media = mediaPrice($combinados);
-    echo "La media de los combinados es $media" . PHP_EOL;
+    $average = averagePrice($cocktails);
+    echo "La media de los coctails es $average" . PHP_EOL;
 
-    function buscar(string $ingrediente, array $combinados):string{
-        $resultados = [];
+    function search(string $ingredient, array $cocktails):string{
+        $result = [];
 
-        foreach($combinados as $combinado){
-            if(in_array($ingrediente, $combinado->ingredientes)){
-                $resultados[]= $combinado->nombre;
+        foreach($cocktails as $cocktail){
+            if(in_array($ingredient, $cocktail->ingredients)){
+                $result[]= $cocktail->name;
             } 
         }
         //print_r($resultados);
-        if(empty($resultados)){
-            return "No se encuentra $ingrediente en ningún combinado";
+        if(empty($result)){
+            return "No se encuentra $ingredient en ningún cocktail";
         }
         else {
-            $cadenaResultados = ""; 
-            foreach ($resultados as $combi) {
-                $cadenaResultados .= "En el $combi hay $ingrediente" . PHP_EOL; 
+            $msg = ""; 
+            foreach ($result as $cock) {
+                $msg .= "En el $cock hay $ingredient" . PHP_EOL; 
             }
-            return $cadenaResultados; 
+            return $msg; 
         }
     }
     
-    $buscar = buscar("azucar", $combinados);
-    echo $buscar;
+    $search = search("azucar", $cocktails);
+    echo $search;
 
 ?>
